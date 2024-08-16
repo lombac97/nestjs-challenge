@@ -40,6 +40,17 @@ functions:
       - http:
           method: ANY
           path: /{proxy+}
+      - http:
+          method: GET
+          path: /
+          integration: lambda
+          request:
+            template:
+              application/json: |
+                {
+                  "statusCode": 301,
+                  "headers": { "Location": "/dev/api/docs/" }
+                }
 
 custom:
   optimize:
