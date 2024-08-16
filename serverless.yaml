@@ -10,7 +10,7 @@ provider:
   memorySize: 1024
   timeout: 30
   stage: dev
-  region: us-east-2
+  region: us-east-1
   environment: 
     PORT: "3000"
     JWT_SECRET: ${env:JWT_SECRET}
