@@ -42,9 +42,8 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts
-        path: |
+        path:
           dist/
-          node_modules/
 
   deploy:
     runs-on: ubuntu-latest
@@ -58,6 +57,9 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: build-artifacts
+    
+    - name: Install Node.js dependencies
+      run: npm install
     
     - name: Install serverless
       run: npm install -g serverless@3
