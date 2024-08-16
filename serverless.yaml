@@ -35,6 +35,7 @@ provider:
 
 functions:
   main:
+    name: nestjs-typescript-challenge
     handler: src/serverless.handler
     events:
       - http:
