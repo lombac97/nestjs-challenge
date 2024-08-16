@@ -9,9 +9,9 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs14.x
-  memorySize: 1024 # optional, in MB, default is 1024
-  timeout: 120 # optional, in seconds, default is 6
+  runtime: nodejs18.x
+  memorySize: 1024
+  timeout: 120
   stage: dev
   region: us-east-1
   environment: 
@@ -22,6 +22,19 @@ provider:
     DB_USER: ${env:DB_USER}
     DB_PASS: ${env:DB_PASS}
     DB_DATABASE: ${env:DB_DATABASE}
+  vpc:
+    securityGroupIds:
+      - sg-d9111ee5
+    subnetIds:
+      - subnet-eced428a
+      - subnet-371cef06
+      - subnet-da6d0cd4
+      - subnet-1fb61e40
+      - subnet-d07bd1f1
+      - subnet-84443bc9
+  iamManagedPolicies:
+    - arn:aws:iam::aws:policy/AWSLambda_FullAccess
+    - arn:aws:iam::aws:policy/AWSLambdaExecute
 
 functions:
   main:
