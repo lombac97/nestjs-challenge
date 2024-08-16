@@ -57,8 +57,11 @@ jobs:
       with:
         name: build-artifacts
     
-    - name: Install Serverless Framework v3
+    - name: Install serverless
       run: npm install -g serverless@3
+    
+    - name: Install Serverless plugins
+      run: npm install serverless-offline@14
 
     - name: Deploy to AWS Lambda with Serverless
       run: npx serverless deploy --stage dev --region us-east-1
