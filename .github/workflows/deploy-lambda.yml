@@ -42,7 +42,9 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts
-        path: dist/
+        path: |
+          dist/
+          node_modules/
 
   deploy:
     runs-on: ubuntu-latest
