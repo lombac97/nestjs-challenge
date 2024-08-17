@@ -52,7 +52,6 @@
     "passport-local": "^1.0.0",
     "rimraf": "^5.0.5",
     "rxjs": "^7.8.1",
-    "serverless": "^3.36.0",
     "swagger-ui-express": "^5.0.0",
     "typeorm": "^0.3.20"
   },

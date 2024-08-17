@@ -3,7 +3,7 @@ name: Run Migrations and Deploy to AWS Lambda
 
 on:
   workflow_run:
-    workflows: ["Node.js CI"]
+    workflows: ["E2E and unit tests"]
     types:
       - completed
 
@@ -60,6 +60,9 @@ jobs:
     
     - name: Install Node.js dependencies
       run: npm install    
+    
+    - name: Install serverless
+      run: npm install -g serverless@3
 
     - name: Deploy to AWS Lambda with Serverless
       run: npx serverless deploy --stage dev --region us-east-1

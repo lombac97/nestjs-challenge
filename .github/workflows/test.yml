@@ -1,4 +1,4 @@
-name: Node.js CI
+name: E2E and unit tests
 
 on:
   push:
