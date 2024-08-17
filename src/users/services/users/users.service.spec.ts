@@ -68,10 +68,18 @@ describe('UsersService', () => {
   });
 
   it('should assign role to a user', async () => {
-    mockUserRepository.findOne.mockReturnValue(mockUser);
+    mockUserRepository.findOne.mockReturnValue({
+      ...mockUser,
+      roles: [{ name: roleNames.AGENT, id: 2 }],
+    });
+    mockUserRepository.save.mockReturnValueOnce({
+      ...mockUser,
+      roles: [{ name: roleNames.AGENT, id: 2 }],
+    });
     mockRoleService.findBy.mockReturnValueOnce([
       { name: roleNames.AGENT, id: 2 },
     ]);
+
     const result = await usersService.assignRoles({
       email: 'demo@demo.com',
       roleNames: [roleNames.AGENT],

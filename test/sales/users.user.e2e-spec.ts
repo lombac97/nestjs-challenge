@@ -119,11 +119,26 @@ describe('UsersControllers (e2e)', () => {
   it('/api/user/assign-roles (POST)', async () => {
     jest
       .spyOn(mockRoleRepository, 'findBy')
-      .mockReturnValue([{ name: 'customer' }]);
+      .mockReturnValue([{ name: roleNames.CUSTOMER }]);
+
+    jest
+      .spyOn(mockUserRepository, 'findOne')
+      .mockReturnValueOnce(mockUser)
+      .mockReturnValueOnce(mockUser)
+      .mockReturnValueOnce({
+        ...mockUser,
+        roles: [{ name: roleNames.CUSTOMER }],
+      });
+
+    jest.spyOn(mockUserRepository, 'save').mockReturnValueOnce({
+      ...mockUser,
+      roles: [{ name: roleNames.CUSTOMER }],
+    });
+
     return request(app.getHttpServer())
       .post('/api/users/assign-roles')
       .auth(await getValidToken(), { type: 'bearer' })
-      .send({ email: 'demo1@demo.com', roleNames: ['customer'] })
+      .send({ email: 'demo1@demo.com', roleNames: [roleNames.CUSTOMER] })
       .expect(201)
       .expect('Content-Type', /application\/json/)
       .expect({
@@ -131,9 +146,27 @@ describe('UsersControllers (e2e)', () => {
         email: 'demo@demo.com',
         roles: [
           {
-            name: 'customer',
+            name: roleNames.CUSTOMER,
           },
         ],
+      });
+  });
+
+  it('/api/user/assign-roles (POST) should throw Bad Request', async () => {
+    jest
+      .spyOn(mockRoleRepository, 'findBy')
+      .mockReturnValue([{ name: roleNames.CUSTOMER }]);
+
+    return request(app.getHttpServer())
+      .post('/api/users/assign-roles')
+      .auth(await getValidToken(), { type: 'bearer' })
+      .send({ email: 'demo1@demo.com', roleNames: [roleNames.CUSTOMER] })
+      .expect(400)
+      .expect('Content-Type', /application\/json/)
+      .expect({
+        message: 'Admin role cannot be changed',
+        error: 'Bad Request',
+        statusCode: 400,
       });
   });
 
@@ -157,7 +190,7 @@ describe('UsersControllers (e2e)', () => {
     return request(app.getHttpServer())
       .post('/api/users/assign-roles')
       .auth(await getValidToken(), { type: 'bearer' })
-      .send({ email: 'demo1@demo.com', roleNames: ['customer'] })
+      .send({ email: 'demo1@demo.com', roleNames: [roleNames.CUSTOMER] })
       .expect(403)
       .expect('Content-Type', /application\/json/)
       .expect(wrongRoleError);
