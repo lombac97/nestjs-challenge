@@ -59,11 +59,7 @@ jobs:
         name: build-artifacts
     
     - name: Install Node.js dependencies
-      run: npm install
-    
-    - name: Install serverless
-      run: npm install -g serverless@3
-    
+      run: npm install    
 
     - name: Deploy to AWS Lambda with Serverless
       run: npx serverless deploy --stage dev --region us-east-1
