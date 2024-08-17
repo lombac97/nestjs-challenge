@@ -70,6 +70,17 @@ export class UsersController {
       },
     },
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad Request',
+    schema: {
+      example: {
+        message: 'Admin role cannot be changed',
+        error: 'Bad Request',
+        statusCode: 400,
+      },
+    },
+  })
   assignRoles(@Body() assignRoleDto: AssignRolesDto) {
     return this.usersService.assignRoles(assignRoleDto);
   }

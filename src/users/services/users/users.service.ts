@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import { User } from '../../models/user.entity';
@@ -50,7 +54,7 @@ export class UsersService {
   }
 
   async assignRoles(assignRoleDto: AssignRolesDto): Promise<User> {
-    const { email, roleNames } = assignRoleDto;
+    const { email, roleNames: requestedRoles } = assignRoleDto;
 
     const user = await this.userRepository.findOne({
       where: { email },
@@ -60,8 +64,12 @@ export class UsersService {
       throw new NotFoundException('User does not exist');
     }
 
+    if (user.roles.some((role) => role.name === roleNames.ADMIN)) {
+      throw new BadRequestException('Admin role cannot be changed');
+    }
+
     const roles = await this.rolesService.findBy({
-      name: In(roleNames),
+      name: In(requestedRoles),
     });
     if (!roles.length) {
       throw new NotFoundException('None of the roles exist');
