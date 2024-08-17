@@ -59,7 +59,7 @@ jobs:
         name: build-artifacts
     
     - name: Install Node.js dependencies
-      run: npm install    
+      run: npm ci --only=production
     
     - name: Install serverless
       run: npm install -g serverless@3
