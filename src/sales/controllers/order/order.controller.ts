@@ -243,7 +243,7 @@ export class OrderController {
     @Req() req: Request,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: 1,
   ): Promise<Pagination<Order>> {
-    const route = `${req.protocol}://${req.hostname}:${process.env.PORT}${req.path}`;
+    const route = `${req.protocol}://${req.hostname}/${process.env.ENVIRONMENT}${req.path}`;
     return this.orderService.findAll({
       page,
       limit: salesConstants.PAGINATION_ITEMS_PER_PAGE,
