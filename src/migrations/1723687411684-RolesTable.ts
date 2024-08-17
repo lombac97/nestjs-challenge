@@ -73,4 +73,3 @@ export class RolesTable1723687411684 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE \`roles\``);
   }
 }
-

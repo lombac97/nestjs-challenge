@@ -77,4 +77,3 @@ export class InitialMigration1723681632710 implements MigrationInterface {
     );
   }
 }
-

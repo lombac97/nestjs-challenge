@@ -19,4 +19,3 @@ export class AddRoles1723687719391 implements MigrationInterface {
         `);
   }
 }
-
