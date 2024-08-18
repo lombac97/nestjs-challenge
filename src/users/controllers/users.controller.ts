@@ -5,6 +5,7 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../guards/roles.guard';
 import { Roles } from '../decorators/roles.decorator';
+import { roleNames } from '../../constants';
 
 @ApiTags('Roles')
 @Controller('api/users')
@@ -12,7 +13,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('admin')
+  @Roles(roleNames.ADMIN)
   @Post('assign-roles')
   @HttpCode(201)
   @ApiResponse({

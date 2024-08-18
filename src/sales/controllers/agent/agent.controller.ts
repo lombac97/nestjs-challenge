@@ -24,11 +24,12 @@ import {
 import { JwtAuthGuard } from './../../../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../users/guards/roles.guard';
 import { Roles } from '../../../users/decorators/roles.decorator';
+import { roleNames } from '../../../constants';
 
 @ApiTags('Agents')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('agent')
+@Roles(roleNames.AGENT)
 @Controller('/api/agents')
 export class AgentController {
   constructor(private agentService: AgentService) {}

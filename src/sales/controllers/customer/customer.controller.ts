@@ -24,11 +24,12 @@ import {
 import { JwtAuthGuard } from './../../../auth/guards/jwt-auth.guard';
 import { Roles } from '../../../users/decorators/roles.decorator';
 import { RolesGuard } from '../../../users/guards/roles.guard';
+import { roleNames } from '../../../constants';
 
 @ApiTags('Customers')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('customer')
+@Roles(roleNames.CUSTOMER)
 @Controller('/api/customers')
 export class CustomerController {
   constructor(private customerService: CustomerService) {}

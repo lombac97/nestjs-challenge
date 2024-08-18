@@ -32,6 +32,7 @@ import {
 import { JwtAuthGuard } from './../../../auth/guards/jwt-auth.guard';
 import { Roles } from '../../../users/decorators/roles.decorator';
 import { RolesGuard } from '../../../users/guards/roles.guard';
+import { roleNames } from '../../../constants';
 
 @ApiTags('Orders')
 @ApiBearerAuth()
@@ -40,7 +41,7 @@ export class OrderController {
   constructor(private orderService: OrderService) {}
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('customer')
+  @Roles(roleNames.CUSTOMER)
   @Get('total-amount-by-customer')
   @ApiOperation({ summary: 'Get total amount of orders group by customer' })
   @ApiResponse({
@@ -75,7 +76,7 @@ export class OrderController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('agent')
+  @Roles(roleNames.AGENT)
   @Get('total-amount-by-agent')
   @ApiOperation({ summary: 'Get total amount of orders group by agent' })
   @ApiResponse({
@@ -110,7 +111,7 @@ export class OrderController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('agent')
+  @Roles(roleNames.AGENT)
   @Get('total-amount-by-country')
   @ApiOperation({ summary: 'Get total amount of orders group by country' })
   @ApiResponse({
@@ -145,7 +146,7 @@ export class OrderController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('agent')
+  @Roles(roleNames.AGENT)
   @Get('/')
   @ApiOperation({ summary: 'Get all orders (paginated)' })
   @ApiQuery({ name: 'page', required: false })
@@ -252,7 +253,7 @@ export class OrderController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('agent')
+  @Roles(roleNames.AGENT)
   @Get(':ordNum')
   @ApiOperation({ summary: 'Get an order by ordNum' })
   @ApiResponse({
@@ -319,7 +320,7 @@ export class OrderController {
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles('customer')
+  @Roles(roleNames.CUSTOMER)
   @Post('/')
   @ApiOperation({ summary: 'Create a new order' })
   @ApiBody({ type: CreateOrderDto })
@@ -364,7 +365,7 @@ export class OrderController {
     return this.orderService.create(createOrderDto);
   }
 
-  @Roles('customer', 'agent')
+  @Roles(roleNames.CUSTOMER, roleNames.AGENT)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Patch(':ordNum')
   @ApiOperation({ summary: 'Update an existing order' })
@@ -408,7 +409,7 @@ export class OrderController {
     return this.orderService.update(ordNum, updateOrderDto);
   }
 
-  @Roles('customer', 'agent')
+  @Roles(roleNames.CUSTOMER, roleNames.AGENT)
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Delete(':ordNum')
   @ApiOperation({ summary: 'Delete an existing order by its ordNum' })

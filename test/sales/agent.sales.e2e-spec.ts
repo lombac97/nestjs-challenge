@@ -40,7 +40,7 @@ describe('SalesController (e2e)', () => {
   const mockUser = {
     id: 1,
     email: 'demo@demo.com',
-    roles: [{ name: 'agent' }],
+    roles: [{ name: roleNames.AGENT }],
   };
   const mockAgentRepository = {
     find: jest.fn().mockImplementation(() => Promise.resolve([agent])),

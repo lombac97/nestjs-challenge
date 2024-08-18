@@ -46,7 +46,7 @@ describe('SalesController (e2e)', () => {
   const mockUser = {
     id: 1,
     email: 'demo@demo.com',
-    roles: [{ name: 'customer' }],
+    roles: [{ name: roleNames.CUSTOMER }],
   };
 
   const mockUserRole = (role: string) => {

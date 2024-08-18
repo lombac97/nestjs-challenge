@@ -38,7 +38,7 @@ describe('UserController', () => {
   it('should return roles assigned', async () => {
     const newRequest = {
       email: 'demo@demo.com',
-      roleNames: ['customer'],
+      roleNames: [roleNames.CUSTOMER],
     } as AssignRolesDto;
     const result = await userController.assignRoles(newRequest);
     expect(result).toEqual(mockRoleAssignResponse);
